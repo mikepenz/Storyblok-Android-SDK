@@ -10,7 +10,7 @@ This is the Storyblok Android client for easy access of the publishing api.
 ## Using Maven
 
 ```gradle
-compile "com.mikepenz:storyblok-android-sdk:0.1.0@aar"
+compile "com.mikepenz:storyblok-android-sdk:0.2.0@aar"
 ```
 
 ## How to use
