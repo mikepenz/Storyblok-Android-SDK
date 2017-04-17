@@ -6,7 +6,6 @@ This is the Storyblok Android client for easy access of the publishing api.
 ## Using Maven
 
 ```gradle
-//not yet published
 compile "com.mikepenz:storyblok-android-sdk:0.1.0@aar"
 ```
 
@@ -19,9 +18,9 @@ StoryBlok client = StoryBlok.init("your-storyblok-token");
 
 ### Load a story
 ```java
-client.getStory("full_slug", new StoryBlok.StoryblokCallback<Story>() {
+client.getStory("fullSlug", new StoryBlok.StoryblokCallback<Story>() {
     @Override
-    public void onFailure(IOException exception) {
+    public void onFailure(IOException exception, String response) {
         //on error
     }
 
@@ -36,23 +35,68 @@ client.getStory("full_slug", new StoryBlok.StoryblokCallback<Story>() {
 ```java
 client.getStories(startsWith, withTag, sortBy, perPage, page, new StoryBlok.StoryblokCallback<List<Story>>() {
     @Override
-        public void onFailure(IOException exception) {
-            //on error
-        }
+    public void onFailure(IOException exception, String response) {
+        //on error
+    }
 
-        @Override
-        public void onResponse(final Result<List<Story>> result) {
-            //on success
-        }
+    @Override
+    public void onResponse(final Result<List<Story>> result) {
+        //on success
+    }
+});
+```
+
+### Load a list of tags
+```java
+client.getTags(startsWith, new StoryBlok.StoryblokCallback<List<Tag>>() {
+    @Override
+    public void onFailure(IOException exception, String response) {
+        //on error
+    }
+
+    @Override
+    public void onResponse(final Result<List<Tag>> result) {
+        //on success
+    }
+});
+```
+
+### Load a map of links
+```java
+client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
+    @Override
+    public void onFailure(IOException exception, String response) {
+        //on error
+    }
+
+    @Override
+    public void onResponse(final Result<Map<String, Link>> result) {
+        //on success
+    }
+});
+```
+
+### Load a list of datasources
+```java
+client.getDatasource(datasource, new StoryBlok.StoryblokCallback<List<Datasource>>() {
+    @Override
+    public void onFailure(IOException exception, String response) {
+        //on error
+    }
+
+    @Override
+    public void onResponse(final Result<List<Datasource>> result) {
+        //on success
+    }
 });
 ```
 
 
 ## Libs used in sample app:
 Mike Penz:
+- FastAdapter https://github.com/mikepenz/FastAdapter
 - AboutLibraries https://github.com/mikepenz/AboutLibraries
 - Android-Iconics https://github.com/mikepenz/Android-Iconics
-- ItemAnimators https://github.com/mikepenz/ItemAnimators
 - MaterialDrawer https://github.com/mikepenz/MaterialDrawer
 
 # Developed By
