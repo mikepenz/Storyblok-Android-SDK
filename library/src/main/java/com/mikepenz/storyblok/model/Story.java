@@ -1,105 +1,68 @@
 package com.mikepenz.storyblok.model;
 
-import android.util.Log;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mikepenz.storyblok.StoryBlok.ERROR_TAG;
-import static com.mikepenz.storyblok.StoryBlok.ERROR_TEXT;
-
 /**
  * Created by mikepenz on 14/04/2017.
  */
 
-public class Story {
-    private String name;
+public class Story extends Entity {
     private String createdAdt;
     private String publishedAt;
-    private long id;
-    private String uuid;
-    private String slug;
     private String fullSlug;
     private String sortByDate;
-    private boolean isStartpage;
     private JSONObject content;
-    private JSONArray tagList;
+    private List<String> tagList;
 
-    public Story(JSONObject story) throws JSONException {
-        if (story.has("name")) {
-            this.name = story.getString("name");
-        }
+    public Story(JSONObject story) {
+        super(story);
+
         if (story.has("created_at")) {
-            this.createdAdt = story.getString("created_at");
+            this.createdAdt = story.optString("created_at");
         }
         if (story.has("published_at")) {
-            this.publishedAt = story.getString("published_at");
-        }
-        if (story.has("id")) {
-            this.id = story.getLong("id");
-        }
-        if (story.has("uuid")) {
-            this.uuid = story.getString("uuid");
+            this.publishedAt = story.optString("published_at");
         }
         if (story.has("content")) {
-            this.content = story.getJSONObject("content");
+            this.content = story.optJSONObject("content");
         }
         if (story.has("tag_list")) {
-            this.tagList = story.getJSONArray("tag_list");
-        }
-        if (story.has("slug")) {
-            this.slug = story.getString("slug");
+            List<String> tagList = new ArrayList<>();
+            JSONArray array = story.optJSONArray("tag_list");
+            for (int i = 0; i < array.length(); i++) {
+                tagList.add(array.optString(i));
+            }
+            this.tagList = tagList;
         }
         if (story.has("full_slug")) {
-            this.fullSlug = story.getString("full_slug");
+            this.fullSlug = story.optString("full_slug");
         }
         if (story.has("sort_by_date")) {
-            this.sortByDate = story.getString("sort_by_date");
-        }
-        if (story.has("is_startpage")) {
-            this.isStartpage = story.getBoolean("is_startpage");
+            this.sortByDate = story.optString("sort_by_date");
         }
     }
 
     public static Story parseStory(JSONObject result) {
         if (result != null) {
-            try {
-                return new Story(result.getJSONObject("story"));
-            } catch (JSONException e) {
-                Log.e(ERROR_TAG, ERROR_TEXT);
-            }
+            return new Story(result.optJSONObject("story"));
         }
         return null;
     }
 
     public static List<Story> parseStories(JSONObject result) {
         if (result != null && result.has("stories")) {
-            JSONArray jsonArray;
-            try {
-                jsonArray = result.getJSONArray("stories");
-            } catch (JSONException e) {
-                Log.e(ERROR_TAG, ERROR_TEXT);
-                return null;
-            }
+            JSONArray jsonArray = result.optJSONArray("stories");
             List<Story> stories = new ArrayList<>(jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
-                try {
-                    stories.add(new Story(jsonArray.getJSONObject(i)));
-                } catch (JSONException e) {
-                    Log.e(ERROR_TAG, ERROR_TEXT);
-                }
+                stories.add(new Story(jsonArray.optJSONObject(i)));
             }
             return stories;
         }
         return null;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getCreatedAdt() {
@@ -110,18 +73,6 @@ public class Story {
         return publishedAt;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
     public String getFullSlug() {
         return fullSlug;
     }
@@ -130,15 +81,11 @@ public class Story {
         return sortByDate;
     }
 
-    public boolean isStartpage() {
-        return isStartpage;
-    }
-
     public JSONObject getContent() {
         return content;
     }
 
-    public JSONArray getTagList() {
+    public List<String> getTagList() {
         return tagList;
     }
 }

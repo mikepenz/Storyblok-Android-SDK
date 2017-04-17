@@ -5,14 +5,18 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mikepenz.storyblok.cache.Cache;
+import com.mikepenz.storyblok.model.Datasource;
+import com.mikepenz.storyblok.model.Link;
 import com.mikepenz.storyblok.model.Result;
 import com.mikepenz.storyblok.model.Story;
+import com.mikepenz.storyblok.model.Tag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +44,9 @@ public class StoryBlok {
     private static final String VERSION_DRAFT = "draft";
 
     private static final String ENDPOINT_STORIES = "stories";
-    private static final String ENDPOINT_LINKS = "stories";
+    private static final String ENDPOINT_LINKS = "links";
+    private static final String ENDPOINT_TAGS = "tags";
+    private static final String ENDPOINT_DATASOURCE = "datasource_entries";
 
     private static StoryBlok SINGLETON = null;
 
@@ -101,12 +107,16 @@ public class StoryBlok {
         client.newCall(buildRequest(buildUrl(ENDPOINT_STORIES).addPathSegments(slug))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e);
+                callback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                callback.onResponse(new Result<>(response.headers(), Story.parseStory(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                if (response.code() >= 300) {
+                    callback.onFailure(null, response.body().string());
+                } else {
+                    callback.onResponse(new Result<>(response.headers(), Story.parseStory(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                }
             }
         });
     }
@@ -128,12 +138,79 @@ public class StoryBlok {
         ).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e);
+                callback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                callback.onResponse(new Result<>(response.headers(), Story.parseStories(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                if (response.code() >= 300) {
+                    callback.onFailure(null, response.body().string());
+                } else {
+                    callback.onResponse(new Result<>(response.headers(), Story.parseStories(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                }
+            }
+        });
+    }
+
+    public void getTags(@Nullable String startsWith, @NonNull final StoryblokCallback<List<Tag>> callback) {
+        final String cacheKey = buildCacheKey(ENDPOINT_TAGS, "starts_with", startsWith);
+        reCacheOnPublish(cacheKey);
+
+        client.newCall(buildRequest(buildUrl(ENDPOINT_TAGS).addQueryParameter("starts_with", startsWith))).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e, null);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() >= 300) {
+                    callback.onFailure(null, response.body().string());
+                } else {
+                    callback.onResponse(new Result<>(response.headers(), Tag.parseTags(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                }
+            }
+        });
+    }
+
+    public void getLinks(@NonNull final StoryblokCallback<Map<String, Link>> callback) {
+        final String cacheKey = buildCacheKey(ENDPOINT_LINKS);
+        reCacheOnPublish(cacheKey);
+
+        client.newCall(buildRequest(buildUrl(ENDPOINT_LINKS))).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e, null);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() >= 300) {
+                    callback.onFailure(null, response.body().string());
+                } else {
+                    callback.onResponse(new Result<>(response.headers(), Link.parseLinks(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                }
+            }
+        });
+    }
+
+    public void getDatasource(@Nullable String startsWith, @NonNull final StoryblokCallback<List<Datasource>> callback) {
+        final String cacheKey = buildCacheKey(ENDPOINT_DATASOURCE, "datasource", startsWith);
+        reCacheOnPublish(cacheKey);
+
+        client.newCall(buildRequest(buildUrl(ENDPOINT_DATASOURCE).addQueryParameter("datasource", startsWith))).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e, null);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() >= 300) {
+                    callback.onFailure(null, response.body().string());
+                } else {
+                    callback.onResponse(new Result<>(response.headers(), Datasource.parseDatasource(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                }
             }
         });
     }
@@ -214,8 +291,8 @@ public class StoryBlok {
     }
 
     public interface StoryblokCallback<Model> {
-        void onFailure(IOException exception);
+        void onFailure(@Nullable IOException exception, @Nullable String response);
 
-        void onResponse(Result<Model> result);
+        void onResponse(@Nullable Result<Model> result);
     }
 }

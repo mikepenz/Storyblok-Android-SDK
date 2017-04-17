@@ -19,11 +19,15 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.storyblok.StoryBlok;
 import com.mikepenz.storyblok.app.items.SimpleItem;
+import com.mikepenz.storyblok.model.Datasource;
+import com.mikepenz.storyblok.model.Link;
 import com.mikepenz.storyblok.model.Result;
 import com.mikepenz.storyblok.model.Story;
+import com.mikepenz.storyblok.model.Tag;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class SampleActivity extends AppCompatActivity {
 
@@ -97,7 +101,7 @@ public class SampleActivity extends AppCompatActivity {
         //get all stories
         client.getStories(null, null, null, 100, 0, new StoryBlok.StoryblokCallback<List<Story>>() {
             @Override
-            public void onFailure(IOException exception) {
+            public void onFailure(IOException exception, String response) {
             }
 
             @Override
@@ -119,7 +123,7 @@ public class SampleActivity extends AppCompatActivity {
         //get story for a specific slug
         client.getStory("pictures/first-image-ever", new StoryBlok.StoryblokCallback<Story>() {
             @Override
-            public void onFailure(IOException exception) {
+            public void onFailure(IOException exception, String response) {
             }
 
             @Override
@@ -129,7 +133,73 @@ public class SampleActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mFastAdapter.add(new SimpleItem().withName("getStories: " + result.getResult().getUuid()).withDescription(result.getResult().getName()));
+                            mFastAdapter.add(new SimpleItem().withName("getStory: " + result.getResult().getUuid()).withDescription(result.getResult().getName()));
+                        }
+                    });
+                }
+            }
+        });
+
+        //get tags
+        client.getTags(null, new StoryBlok.StoryblokCallback<List<Tag>>() {
+            @Override
+            public void onFailure(IOException exception, String response) {
+            }
+
+            @Override
+            public void onResponse(final Result<List<Tag>> result) {
+                Log.e("StoryBlok sample", result.toString());
+                if (result.getResult() != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (Tag tag : result.getResult()) {
+                                mFastAdapter.add(new SimpleItem().withName("getTags: " + tag.getName()).withDescription(tag.getTaggingsCount() + ""));
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        //get tags
+        client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
+            @Override
+            public void onFailure(IOException exception, String response) {
+            }
+
+            @Override
+            public void onResponse(final Result<Map<String, Link>> result) {
+                Log.e("StoryBlok sample", result.toString());
+                if (result.getResult() != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (Map.Entry<String, Link> e : result.getResult().entrySet()) {
+                                mFastAdapter.add(new SimpleItem().withName("getLinks: " + e.getKey()).withDescription(e.getValue().getName()));
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        //get datasources
+        client.getDatasource(null, new StoryBlok.StoryblokCallback<List<Datasource>>() {
+            @Override
+            public void onFailure(IOException exception, String response) {
+            }
+
+            @Override
+            public void onResponse(final Result<List<Datasource>> result) {
+                Log.e("StoryBlok sample", result.toString());
+                if (result.getResult() != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (Datasource datasource : result.getResult()) {
+                                mFastAdapter.add(new SimpleItem().withName("getDatasources: " + datasource.getId()).withDescription(datasource.getName()));
+                            }
                         }
                     });
                 }
