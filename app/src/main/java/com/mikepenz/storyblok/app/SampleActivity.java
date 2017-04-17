@@ -48,7 +48,6 @@ public class SampleActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
 
         //Create the drawer
         mResult = new DrawerBuilder()
