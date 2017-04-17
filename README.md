@@ -1,8 +1,8 @@
-# StoryBlok-Android-SDK
+# Storyblok-Android-SDK
 
 This is the Storyblok Android client for easy access of the publishing api.
 
-# More about StoryBlok
+# More about Storyblok
 - **WEBSITE** https://www.storyblok.com/
 - **API DOC** https://www.storyblok.com/docs/Delivery-Api/
 
@@ -10,19 +10,19 @@ This is the Storyblok Android client for easy access of the publishing api.
 ## Using Maven
 
 ```gradle
-compile "com.mikepenz:storyblok-android-sdk:0.1.0@aar"
+compile "com.mikepenz:storyblok-android-sdk:0.2.0@aar"
 ```
 
 ## How to use
 ### Init client
 
 ```java
-StoryBlok client = StoryBlok.init("your-storyblok-token");
+Storyblok client = Storyblok.init("your-storyblok-token");
 ```
 
 ### Load a story
 ```java
-client.getStory("fullSlug", new StoryBlok.StoryblokCallback<Story>() {
+client.getStory("fullSlug", new Storyblok.StoryblokCallback<Story>() {
     @Override
     public void onFailure(IOException exception, String response) {
         //on error
@@ -37,7 +37,7 @@ client.getStory("fullSlug", new StoryBlok.StoryblokCallback<Story>() {
 
 ### Load a list of stories
 ```java
-client.getStories(startsWith, withTag, sortBy, perPage, page, new StoryBlok.StoryblokCallback<List<Story>>() {
+client.getStories(startsWith, withTag, sortBy, perPage, page, new Storyblok.StoryblokCallback<List<Story>>() {
     @Override
     public void onFailure(IOException exception, String response) {
         //on error
@@ -52,7 +52,7 @@ client.getStories(startsWith, withTag, sortBy, perPage, page, new StoryBlok.Stor
 
 ### Load a list of tags
 ```java
-client.getTags(startsWith, new StoryBlok.StoryblokCallback<List<Tag>>() {
+client.getTags(startsWith, new Storyblok.StoryblokCallback<List<Tag>>() {
     @Override
     public void onFailure(IOException exception, String response) {
         //on error
@@ -67,7 +67,7 @@ client.getTags(startsWith, new StoryBlok.StoryblokCallback<List<Tag>>() {
 
 ### Load a map of links
 ```java
-client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
+client.getLinks(new Storyblok.StoryblokCallback<Map<String, Link>>() {
     @Override
     public void onFailure(IOException exception, String response) {
         //on error
@@ -82,7 +82,7 @@ client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
 
 ### Load a list of datasources
 ```java
-client.getDatasource(datasource, new StoryBlok.StoryblokCallback<List<Datasource>>() {
+client.getDatasource(datasource, new Storyblok.StoryblokCallback<List<Datasource>>() {
     @Override
     public void onFailure(IOException exception, String response) {
         //on error

@@ -17,7 +17,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.storyblok.StoryBlok;
+import com.mikepenz.storyblok.Storyblok;
 import com.mikepenz.storyblok.app.items.SimpleItem;
 import com.mikepenz.storyblok.model.Datasource;
 import com.mikepenz.storyblok.model.Link;
@@ -48,7 +48,6 @@ public class SampleActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
 
         //Create the drawer
         mResult = new DrawerBuilder()
@@ -95,18 +94,18 @@ public class SampleActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mFastAdapter);
         mFastAdapter.withSavedInstanceState(savedInstanceState);
 
-        //init our StoryBlok
-        StoryBlok client = StoryBlok.init(BuildConfig.STORYBLOK_TOKEN);
+        //init our Storyblok
+        Storyblok client = Storyblok.init(BuildConfig.STORYBLOK_TOKEN);
 
         //get all stories
-        client.getStories(null, null, null, 100, 0, new StoryBlok.StoryblokCallback<List<Story>>() {
+        client.getStories(null, null, null, 100, 0, new Storyblok.StoryblokCallback<List<Story>>() {
             @Override
             public void onFailure(IOException exception, String response) {
             }
 
             @Override
             public void onResponse(final Result<List<Story>> result) {
-                Log.e("StoryBlok sample", result.toString());
+                Log.e("Storyblok sample", result.toString());
                 if (result.getResult() != null) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -121,14 +120,14 @@ public class SampleActivity extends AppCompatActivity {
         });
 
         //get story for a specific slug
-        client.getStory("pictures/first-image-ever", new StoryBlok.StoryblokCallback<Story>() {
+        client.getStory("pictures/first-image-ever", new Storyblok.StoryblokCallback<Story>() {
             @Override
             public void onFailure(IOException exception, String response) {
             }
 
             @Override
             public void onResponse(final Result<Story> result) {
-                Log.e("StoryBlok sample", result.toString());
+                Log.e("Storyblok sample", result.toString());
                 if (result.getResult() != null) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -141,14 +140,14 @@ public class SampleActivity extends AppCompatActivity {
         });
 
         //get tags
-        client.getTags(null, new StoryBlok.StoryblokCallback<List<Tag>>() {
+        client.getTags(null, new Storyblok.StoryblokCallback<List<Tag>>() {
             @Override
             public void onFailure(IOException exception, String response) {
             }
 
             @Override
             public void onResponse(final Result<List<Tag>> result) {
-                Log.e("StoryBlok sample", result.toString());
+                Log.e("Storyblok sample", result.toString());
                 if (result.getResult() != null) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -163,14 +162,14 @@ public class SampleActivity extends AppCompatActivity {
         });
 
         //get links
-        client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
+        client.getLinks(new Storyblok.StoryblokCallback<Map<String, Link>>() {
             @Override
             public void onFailure(IOException exception, String response) {
             }
 
             @Override
             public void onResponse(final Result<Map<String, Link>> result) {
-                Log.e("StoryBlok sample", result.toString());
+                Log.e("Storyblok sample", result.toString());
                 if (result.getResult() != null) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -185,14 +184,14 @@ public class SampleActivity extends AppCompatActivity {
         });
 
         //get datasources
-        client.getDatasource(null, new StoryBlok.StoryblokCallback<List<Datasource>>() {
+        client.getDatasource(null, new Storyblok.StoryblokCallback<List<Datasource>>() {
             @Override
             public void onFailure(IOException exception, String response) {
             }
 
             @Override
             public void onResponse(final Result<List<Datasource>> result) {
-                Log.e("StoryBlok sample", result.toString());
+                Log.e("Storyblok sample", result.toString());
                 if (result.getResult() != null) {
                     runOnUiThread(new Runnable() {
                         @Override

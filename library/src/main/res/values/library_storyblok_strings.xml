@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_storybloksdkforandroid"></string>
+    <!-- Author section -->
+    <string name="library_storybloksdkforandroid_author">Mike Penz</string>
+    <string name="library_storybloksdkforandroid_authorWebsite">http://mikepenz.com</string>
+    <!-- Library section -->
+    <string name="library_storybloksdkforandroid_libraryName">Storyblok SDK for Android</string>
+    <string name="library_storybloksdkforandroid_libraryDescription">This is the Storyblok Android client for easy access of the publishing api.</string>
+    <string name="library_storybloksdkforandroid_libraryWebsite">https://github.com/mikepenz/Storyblok-Android-SDK</string>
+    <string name="library_storybloksdkforandroid_libraryVersion">0.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_storybloksdkforandroid_isOpenSource">true</string>
+    <string name="library_storybloksdkforandroid_repositoryLink">https://github.com/mikepenz/Storyblok-Android-SDK</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_storybloksdkforandroid_classPath">com.mikepenz.storyblok.Storyblok</string>
+    <!-- License section -->
+    <string name="library_storybloksdkforandroid_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

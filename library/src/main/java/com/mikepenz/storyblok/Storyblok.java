@@ -29,8 +29,8 @@ import okhttp3.Response;
  * Created by mikepenz on 14/04/2017.
  */
 
-public class StoryBlok {
-    public static final String ERROR_TAG = "StoryBlok";
+public class Storyblok {
+    public static final String ERROR_TAG = "Storyblok";
     public static final String ERROR_TEXT = "Sorry for the inconvience. Something broken was sent by the server";
 
     private static final String API_PROTOCOL = "https";
@@ -48,7 +48,7 @@ public class StoryBlok {
     private static final String ENDPOINT_TAGS = "tags";
     private static final String ENDPOINT_DATASOURCE = "datasource_entries";
 
-    private static StoryBlok SINGLETON = null;
+    private static Storyblok SINGLETON = null;
 
     private OkHttpClient client = new OkHttpClient();
 
@@ -59,43 +59,43 @@ public class StoryBlok {
     private String apiEndpoint = API_ENDPOINT;
     private String apiVersion = API_VERSION;
 
-    private StoryBlok(String token) {
+    private Storyblok(String token) {
         this.token = token;
     }
 
-    public static StoryBlok init(String token) {
+    public static Storyblok init(String token) {
         if (SINGLETON == null) {
-            SINGLETON = new StoryBlok(token);
+            SINGLETON = new Storyblok(token);
         }
         return SINGLETON;
     }
 
-    public StoryBlok withCache(Cache cache) {
+    public Storyblok withCache(Cache cache) {
         this.cache = cache;
         return this;
     }
 
-    public StoryBlok withToken(String token) {
+    public Storyblok withToken(String token) {
         this.token = token;
         return this;
     }
 
-    public StoryBlok withApiProtocol(String apiProtocol) {
+    public Storyblok withApiProtocol(String apiProtocol) {
         this.apiProtocol = apiProtocol;
         return this;
     }
 
-    public StoryBlok withApiEndpoint(String apiEndpoint) {
+    public Storyblok withApiEndpoint(String apiEndpoint) {
         this.apiEndpoint = apiEndpoint;
         return this;
     }
 
-    public StoryBlok withApiVersion(String apiVersion) {
+    public Storyblok withApiVersion(String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
 
-    public StoryBlok withEditMode(boolean editMode) {
+    public Storyblok withEditMode(boolean editMode) {
         this.editMode = editMode;
         return this;
     }

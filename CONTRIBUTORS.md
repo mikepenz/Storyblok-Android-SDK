@@ -1,2 +1,2 @@
-StoryBlok SDK for Android contributors (sorted alphabeticaly)
+Storyblok SDK for Android contributors (sorted alphabeticaly)
 ============================================
