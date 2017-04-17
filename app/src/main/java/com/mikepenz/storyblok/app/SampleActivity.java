@@ -162,7 +162,7 @@ public class SampleActivity extends AppCompatActivity {
             }
         });
 
-        //get tags
+        //get links
         client.getLinks(new StoryBlok.StoryblokCallback<Map<String, Link>>() {
             @Override
             public void onFailure(IOException exception, String response) {

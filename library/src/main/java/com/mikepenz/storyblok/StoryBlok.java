@@ -194,11 +194,11 @@ public class StoryBlok {
         });
     }
 
-    public void getDatasource(@Nullable String startsWith, @NonNull final StoryblokCallback<List<Datasource>> callback) {
-        final String cacheKey = buildCacheKey(ENDPOINT_DATASOURCE, "datasource", startsWith);
+    public void getDatasource(@Nullable String datasource, @NonNull final StoryblokCallback<List<Datasource>> callback) {
+        final String cacheKey = buildCacheKey(ENDPOINT_DATASOURCE, "datasource", datasource);
         reCacheOnPublish(cacheKey);
 
-        client.newCall(buildRequest(buildUrl(ENDPOINT_DATASOURCE).addQueryParameter("datasource", startsWith))).enqueue(new Callback() {
+        client.newCall(buildRequest(buildUrl(ENDPOINT_DATASOURCE).addQueryParameter("datasource", datasource))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 callback.onFailure(e, null);
