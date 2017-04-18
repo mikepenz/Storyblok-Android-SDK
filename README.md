@@ -4,13 +4,13 @@ This is the Storyblok Android client for easy access of the publishing api.
 
 # More about Storyblok
 - **WEBSITE** https://www.storyblok.com/
-- **API DOC** https://www.storyblok.com/docs/Delivery-Api/
+- **API DOC** https://www.storyblok.com/docs/Delivery-Api/introduction
 
 # Include in your project
 ## Using Maven
 
 ```gradle
-compile "com.mikepenz:storyblok-android-sdk:0.2.0@aar"
+compile "com.mikepenz:storyblok-android-sdk:0.3.0@aar"
 ```
 
 ## How to use
@@ -22,75 +22,75 @@ Storyblok client = Storyblok.init("your-storyblok-token");
 
 ### Load a story
 ```java
-client.getStory("fullSlug", new Storyblok.StoryblokCallback<Story>() {
-    @Override
-    public void onFailure(IOException exception, String response) {
-        //on error
-    }
-
+client.getStory("fullSlug", new Storyblok.SuccessCallback<Story>() {
     @Override
     public void onResponse(final Result<Story> result) {
         //on success
     }
+}, new Storyblok.ErrorCallback() {
+     @Override
+     public void onFailure(@Nullable IOException exception, @Nullable String response) {
+         //on error
+     }
 });
 ```
 
 ### Load a list of stories
 ```java
-client.getStories(startsWith, withTag, sortBy, perPage, page, new Storyblok.StoryblokCallback<List<Story>>() {
-    @Override
-    public void onFailure(IOException exception, String response) {
-        //on error
-    }
-
+client.getStories(startsWith, withTag, sortBy, perPage, page, new Storyblok.SuccessCallback<List<Story>>() {
     @Override
     public void onResponse(final Result<List<Story>> result) {
         //on success
     }
+}, new Storyblok.ErrorCallback() {
+     @Override
+     public void onFailure(@Nullable IOException exception, @Nullable String response) {
+         //on error
+     }
 });
 ```
 
 ### Load a list of tags
 ```java
-client.getTags(startsWith, new Storyblok.StoryblokCallback<List<Tag>>() {
-    @Override
-    public void onFailure(IOException exception, String response) {
-        //on error
-    }
-
+client.getTags(startsWith, new Storyblok.SuccessCallback<List<Tag>>() {
     @Override
     public void onResponse(final Result<List<Tag>> result) {
         //on success
     }
+}, new Storyblok.ErrorCallback() {
+     @Override
+     public void onFailure(@Nullable IOException exception, @Nullable String response) {
+         //on error
+     }
 });
 ```
 
 ### Load a map of links
 ```java
-client.getLinks(new Storyblok.StoryblokCallback<Map<String, Link>>() {
-    @Override
-    public void onFailure(IOException exception, String response) {
-        //on error
-    }
-
+client.getLinks(new Storyblok.SuccessCallback<Map<String, Link>>() {
     @Override
     public void onResponse(final Result<Map<String, Link>> result) {
         //on success
     }
+}, new Storyblok.ErrorCallback() {
+     @Override
+     public void onFailure(@Nullable IOException exception, @Nullable String response) {
+         //on error
+     }
 });
 ```
 
 ### Load a list of datasources
 ```java
-client.getDatasource(datasource, new Storyblok.StoryblokCallback<List<Datasource>>() {
-    @Override
-    public void onFailure(IOException exception, String response) {
-        //on error
-    }
-
+client.getDatasource(datasource, new Storyblok.SuccessCallback<List<Datasource>>() {
     @Override
     public void onResponse(final Result<List<Datasource>> result) {
         //on success
+    }
+}, new Storyblok.ErrorCallback() {
+    @Override
+    public void onFailure(@Nullable IOException exception, @Nullable String response) {
+        //on error
     }
 });
 ```

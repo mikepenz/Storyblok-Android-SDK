@@ -2,6 +2,7 @@ package com.mikepenz.storyblok.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -98,11 +99,7 @@ public class SampleActivity extends AppCompatActivity {
         Storyblok client = Storyblok.init(BuildConfig.STORYBLOK_TOKEN);
 
         //get all stories
-        client.getStories(null, null, null, 100, 0, new Storyblok.StoryblokCallback<List<Story>>() {
-            @Override
-            public void onFailure(IOException exception, String response) {
-            }
-
+        client.getStories(null, null, null, 100, 0, new Storyblok.SuccessCallback<List<Story>>() {
             @Override
             public void onResponse(final Result<List<Story>> result) {
                 Log.e("Storyblok sample", result.toString());
@@ -117,14 +114,15 @@ public class SampleActivity extends AppCompatActivity {
                     });
                 }
             }
+        }, new Storyblok.ErrorCallback() {
+            @Override
+            public void onFailure(@Nullable IOException exception, @Nullable String response) {
+
+            }
         });
 
         //get story for a specific slug
-        client.getStory("pictures/first-image-ever", new Storyblok.StoryblokCallback<Story>() {
-            @Override
-            public void onFailure(IOException exception, String response) {
-            }
-
+        client.getStory("pictures/first-image-ever", new Storyblok.SuccessCallback<Story>() {
             @Override
             public void onResponse(final Result<Story> result) {
                 Log.e("Storyblok sample", result.toString());
@@ -137,14 +135,15 @@ public class SampleActivity extends AppCompatActivity {
                     });
                 }
             }
+        }, new Storyblok.ErrorCallback() {
+            @Override
+            public void onFailure(@Nullable IOException exception, @Nullable String response) {
+
+            }
         });
 
         //get tags
-        client.getTags(null, new Storyblok.StoryblokCallback<List<Tag>>() {
-            @Override
-            public void onFailure(IOException exception, String response) {
-            }
-
+        client.getTags(null, new Storyblok.SuccessCallback<List<Tag>>() {
             @Override
             public void onResponse(final Result<List<Tag>> result) {
                 Log.e("Storyblok sample", result.toString());
@@ -159,14 +158,15 @@ public class SampleActivity extends AppCompatActivity {
                     });
                 }
             }
+        }, new Storyblok.ErrorCallback() {
+            @Override
+            public void onFailure(@Nullable IOException exception, @Nullable String response) {
+
+            }
         });
 
         //get links
-        client.getLinks(new Storyblok.StoryblokCallback<Map<String, Link>>() {
-            @Override
-            public void onFailure(IOException exception, String response) {
-            }
-
+        client.getLinks(new Storyblok.SuccessCallback<Map<String, Link>>() {
             @Override
             public void onResponse(final Result<Map<String, Link>> result) {
                 Log.e("Storyblok sample", result.toString());
@@ -181,14 +181,15 @@ public class SampleActivity extends AppCompatActivity {
                     });
                 }
             }
+        }, new Storyblok.ErrorCallback() {
+            @Override
+            public void onFailure(@Nullable IOException exception, @Nullable String response) {
+
+            }
         });
 
         //get datasources
-        client.getDatasource(null, new Storyblok.StoryblokCallback<List<Datasource>>() {
-            @Override
-            public void onFailure(IOException exception, String response) {
-            }
-
+        client.getDatasource(null, new Storyblok.SuccessCallback<List<Datasource>>() {
             @Override
             public void onResponse(final Result<List<Datasource>> result) {
                 Log.e("Storyblok sample", result.toString());
@@ -202,6 +203,11 @@ public class SampleActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        }, new Storyblok.ErrorCallback() {
+            @Override
+            public void onFailure(@Nullable IOException exception, @Nullable String response) {
+
             }
         });
     }
