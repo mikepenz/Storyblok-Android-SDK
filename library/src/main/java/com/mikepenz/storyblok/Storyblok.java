@@ -100,28 +100,29 @@ public class Storyblok {
         return this;
     }
 
-    public void getStory(@NonNull String slug, @NonNull final StoryblokCallback<Story> callback) {
+    public void getStory(@NonNull String slug, @NonNull final SuccessCallback<Story> successCallback, @Nullable final ErrorCallback errorCallback) {
         final String cacheKey = buildCacheKey(ENDPOINT_STORIES, "slug", slug);
         reCacheOnPublish(cacheKey);
 
         client.newCall(buildRequest(buildUrl(ENDPOINT_STORIES).addPathSegments(slug))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e, null);
+                if (errorCallback != null) errorCallback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() >= 300) {
-                    callback.onFailure(null, response.body().string());
+                    if (errorCallback != null)
+                        errorCallback.onFailure(null, response.body().string());
                 } else {
-                    callback.onResponse(new Result<>(response.headers(), Story.parseStory(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                    successCallback.onResponse(new Result<>(response.headers(), Story.parseStory(toJsonObjectAndCache(cacheKey, response.body().string()))));
                 }
             }
         });
     }
 
-    public void getStories(@Nullable String startsWith, @Nullable String withTag, @Nullable String sortBy, @Nullable Integer perPage, @Nullable Integer page, @NonNull final StoryblokCallback<List<Story>> callback) {
+    public void getStories(@Nullable String startsWith, @Nullable String withTag, @Nullable String sortBy, @Nullable Integer perPage, @Nullable Integer page, @NonNull final SuccessCallback<List<Story>> successCallback, @Nullable final ErrorCallback errorCallback) {
         final String cacheKey = buildCacheKey(ENDPOINT_STORIES, "starts_with", startsWith, "with_tag", withTag, "sort_by", sortBy, "per_page", String.valueOf(perPage), "page", String.valueOf(page));
         reCacheOnPublish(cacheKey);
 
@@ -138,78 +139,82 @@ public class Storyblok {
         ).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e, null);
+                if (errorCallback != null) errorCallback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() >= 300) {
-                    callback.onFailure(null, response.body().string());
+                    if (errorCallback != null)
+                        errorCallback.onFailure(null, response.body().string());
                 } else {
-                    callback.onResponse(new Result<>(response.headers(), Story.parseStories(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                    successCallback.onResponse(new Result<>(response.headers(), Story.parseStories(toJsonObjectAndCache(cacheKey, response.body().string()))));
                 }
             }
         });
     }
 
-    public void getTags(@Nullable String startsWith, @NonNull final StoryblokCallback<List<Tag>> callback) {
+    public void getTags(@Nullable String startsWith, @NonNull final SuccessCallback<List<Tag>> successCallback, @Nullable final ErrorCallback errorCallback) {
         final String cacheKey = buildCacheKey(ENDPOINT_TAGS, "starts_with", startsWith);
         reCacheOnPublish(cacheKey);
 
         client.newCall(buildRequest(buildUrl(ENDPOINT_TAGS).addQueryParameter("starts_with", startsWith))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e, null);
+                if (errorCallback != null) errorCallback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() >= 300) {
-                    callback.onFailure(null, response.body().string());
+                    if (errorCallback != null)
+                        errorCallback.onFailure(null, response.body().string());
                 } else {
-                    callback.onResponse(new Result<>(response.headers(), Tag.parseTags(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                    successCallback.onResponse(new Result<>(response.headers(), Tag.parseTags(toJsonObjectAndCache(cacheKey, response.body().string()))));
                 }
             }
         });
     }
 
-    public void getLinks(@NonNull final StoryblokCallback<Map<String, Link>> callback) {
+    public void getLinks(@NonNull final SuccessCallback<Map<String, Link>> successCallback, @Nullable final ErrorCallback errorCallback) {
         final String cacheKey = buildCacheKey(ENDPOINT_LINKS);
         reCacheOnPublish(cacheKey);
 
         client.newCall(buildRequest(buildUrl(ENDPOINT_LINKS))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e, null);
+                if (errorCallback != null) errorCallback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() >= 300) {
-                    callback.onFailure(null, response.body().string());
+                    if (errorCallback != null)
+                        errorCallback.onFailure(null, response.body().string());
                 } else {
-                    callback.onResponse(new Result<>(response.headers(), Link.parseLinks(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                    successCallback.onResponse(new Result<>(response.headers(), Link.parseLinks(toJsonObjectAndCache(cacheKey, response.body().string()))));
                 }
             }
         });
     }
 
-    public void getDatasource(@Nullable String datasource, @NonNull final StoryblokCallback<List<Datasource>> callback) {
+    public void getDatasource(@Nullable String datasource, @NonNull final SuccessCallback<List<Datasource>> successCallback, @Nullable final ErrorCallback errorCallback) {
         final String cacheKey = buildCacheKey(ENDPOINT_DATASOURCE, "datasource", datasource);
         reCacheOnPublish(cacheKey);
 
         client.newCall(buildRequest(buildUrl(ENDPOINT_DATASOURCE).addQueryParameter("datasource", datasource))).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callback.onFailure(e, null);
+                if (errorCallback != null) errorCallback.onFailure(e, null);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() >= 300) {
-                    callback.onFailure(null, response.body().string());
+                    if (errorCallback != null)
+                        errorCallback.onFailure(null, response.body().string());
                 } else {
-                    callback.onResponse(new Result<>(response.headers(), Datasource.parseDatasource(toJsonObjectAndCache(cacheKey, response.body().string()))));
+                    successCallback.onResponse(new Result<>(response.headers(), Datasource.parseDatasource(toJsonObjectAndCache(cacheKey, response.body().string()))));
                 }
             }
         });
@@ -290,9 +295,11 @@ public class Storyblok {
                 .addQueryParameter("version", editMode ? VERSION_DRAFT : VERSION_PUBLISHED);
     }
 
-    public interface StoryblokCallback<Model> {
-        void onFailure(@Nullable IOException exception, @Nullable String response);
-
+    public interface SuccessCallback<Model> {
         void onResponse(@Nullable Result<Model> result);
+    }
+
+    public interface ErrorCallback {
+        void onFailure(@Nullable IOException exception, @Nullable String response);
     }
 }
