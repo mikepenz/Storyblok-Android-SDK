@@ -1,6 +1,6 @@
 package com.mikepenz.storyblok.model;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import okhttp3.Headers;
 
