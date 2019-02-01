@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -24,11 +26,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 //apply from: '../gradle-mvn-push.gradle'
@@ -38,6 +35,10 @@ android {
 dependencies {
     implementation "androidx.annotation:annotation:${versions.annotation}"
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${setup.kotlin}"
 }
 
 apply from: '../gradle-release.gradle'
+repositories {
+    mavenCentral()
+}
