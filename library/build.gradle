@@ -39,3 +39,5 @@ dependencies {
     implementation "androidx.annotation:annotation:${versions.annotation}"
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
 }
+
+apply from: '../gradle-release.gradle'
