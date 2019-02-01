@@ -10,89 +10,81 @@ This is the Storyblok Android client for easy access of the publishing api.
 ## Using Maven
 
 ```gradle
-implementation "com.mikepenz:storyblok-android-sdk:0.5.0"
+implementation "com.mikepenz:storyblok-android-sdk:1.0.0"
 ```
+
+> Note starting with v1.0.0 this library uses kotlin. See older versions for java only.
 
 ## How to use
 ### Init client
 
-```java
-Storyblok client = Storyblok.init("your-storyblok-token");
+```kotlin
+val client = Storyblok.init("your-storyblok-token")
 ```
 
 ### Load a story
-```java
-client.getStory("fullSlug", new Storyblok.SuccessCallback<Story>() {
-    @Override
-    public void onResponse(final Result<Story> result) {
+```kotlin
+client.getStory("fullSlug", object : Storyblok.SuccessCallback<Story> {
+    override fun onResponse(result: Result<Story>) {
         //on success
     }
-}, new Storyblok.ErrorCallback() {
-     @Override
-     public void onFailure(@Nullable IOException exception, @Nullable String response) {
-         //on error
-     }
-});
+}, object : Storyblok.ErrorCallback {
+    override fun onFailure(exception: IOException?, response: String?) {
+        // empty
+    }
+})
 ```
 
 ### Load a list of stories
-```java
-client.getStories(startsWith, withTag, sortBy, perPage, page, new Storyblok.SuccessCallback<List<Story>>() {
-    @Override
-    public void onResponse(final Result<List<Story>> result) {
+```kotlin
+client.getStories(startsWith, withTag, sortBy, perPage, page, object : Storyblok.SuccessCallback<List<Story>> {
+    override fun onResponse(result: Result<List<Story>>) {
         //on success
     }
-}, new Storyblok.ErrorCallback() {
-     @Override
-     public void onFailure(@Nullable IOException exception, @Nullable String response) {
-         //on error
-     }
-});
+}, object : Storyblok.ErrorCallback {
+    override fun onFailure(exception: IOException?, response: String?) {
+        // empty
+    }
+})
 ```
 
 ### Load a list of tags
-```java
-client.getTags(startsWith, new Storyblok.SuccessCallback<List<Tag>>() {
-    @Override
-    public void onResponse(final Result<List<Tag>> result) {
+```kotlin
+client.getTags(startsWith, object : Storyblok.SuccessCallback<List<Tag>> {
+    override fun onResponse(result: Result<List<Tag>>) {
         //on success
     }
-}, new Storyblok.ErrorCallback() {
-     @Override
-     public void onFailure(@Nullable IOException exception, @Nullable String response) {
-         //on error
-     }
-});
+}, object : Storyblok.ErrorCallback {
+    override fun onFailure(exception: IOException?, response: String?) {
+        // empty
+    }
+})
 ```
 
 ### Load a map of links
-```java
-client.getLinks(new Storyblok.SuccessCallback<Map<String, Link>>() {
-    @Override
-    public void onResponse(final Result<Map<String, Link>> result) {
+```kotlin
+client.getLinks(object : Storyblok.SuccessCallback<Map<String, Link>> {
+    override fun onResponse(result: Result<Map<String, Link>>) {
         //on success
     }
-}, new Storyblok.ErrorCallback() {
-     @Override
-     public void onFailure(@Nullable IOException exception, @Nullable String response) {
-         //on error
-     }
-});
+}, object : Storyblok.ErrorCallback {
+    override fun onFailure(exception: IOException?, response: String?) {
+        // empty
+    }
+})
 ```
 
 ### Load a list of datasources
-```java
-client.getDatasource(datasource, new Storyblok.SuccessCallback<List<Datasource>>() {
-    @Override
-    public void onResponse(final Result<List<Datasource>> result) {
+```kotlin
+client.getDatasource(datasource, object : Storyblok.SuccessCallback<List<Datasource>> {
+    override fun onResponse(result: Result<List<Datasource>>) {
         //on success
     }
-}, new Storyblok.ErrorCallback() {
-    @Override
-    public void onFailure(@Nullable IOException exception, @Nullable String response) {
-        //on error
+}, object : Storyblok.ErrorCallback {
+    override fun onFailure(exception: IOException?, response: String?) {
+        // empty
     }
-});
+})
 ```
 
 
