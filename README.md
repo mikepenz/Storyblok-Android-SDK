@@ -4,7 +4,7 @@ This is the Storyblok Android client for easy access of the publishing api.
 
 # More about Storyblok
 - **WEBSITE** https://www.storyblok.com/
-- **API DOC** https://www.storyblok.com/docs/Delivery-Api/introduction
+- **API DOC** https://www.storyblok.com/docs/api/content-delivery
 
 # Include in your project
 ## Using Maven
