@@ -10,7 +10,7 @@ This is the Storyblok Android client for easy access of the publishing api.
 ## Using Maven
 
 ```gradle
-compile "com.mikepenz:storyblok-android-sdk:0.3.0@aar"
+implementation "com.mikepenz:storyblok-android-sdk:0.5.0"
 ```
 
 ## How to use
@@ -115,7 +115,7 @@ This free, open source software was also made possible by a group of volunteers 
 
 # License
 
-    Copyright 2017 Mike Penz
+    Copyright 2019 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
