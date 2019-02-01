@@ -1,11 +1,14 @@
 package com.mikepenz.storyblok.app.items;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.storyblok.app.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -15,10 +18,10 @@ import butterknife.ButterKnife;
 /**
  * Created by mikepenz on 28.12.15.
  */
-public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> {
+public class SimpleItem extends AbstractItem<SimpleItem.ViewHolder> {
 
-    public String name;
-    public String description;
+    private String name;
+    private String description;
 
     public SimpleItem withName(String name) {
         this.name = name;
@@ -69,6 +72,7 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
         holder.description.setText(null);
     }
 
+    @NotNull
     @Override
     public ViewHolder getViewHolder(View v) {
         return new ViewHolder(v);
@@ -77,13 +81,13 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
     /**
      * our ViewHolder
      */
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name)
         TextView name;
         @BindView(R.id.description)
         TextView description;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
