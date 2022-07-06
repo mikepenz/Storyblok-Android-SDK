@@ -1,4 +1,9 @@
-# Storyblok-Android-SDK
+# Storyblok Kotlin Multiplatform SDK
+
+Please find the new Kotlin multiplatform SDK available here: https://github.com/mikepenz/storyblok-mp-SDK
+
+
+# Storyblok-Android-SDK [Deprecated]
 
 This is the Storyblok Android client for easy access of the publishing api.
 
